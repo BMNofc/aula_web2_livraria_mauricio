@@ -28,9 +28,9 @@ let autores = [
 @Injectable()
 export class AutoresService {
   listarAutores() {
-    if (!autores) {
-      return 'Não há autores cadastrado';
-    }
+    if (!autores){
+        return 'autores não encontrado';
+      }
     return autores;
   }
 
@@ -70,5 +70,13 @@ export class AutoresService {
     }
 
     return autorEncontrado;
+  }
+
+  deletarAutor(idAutor: number) {
+    this.listarAutor(idAutor);
+
+    autores = autores.filter((autor) => autor.id !== idAutor);
+    
+    return autores;
   }
 }

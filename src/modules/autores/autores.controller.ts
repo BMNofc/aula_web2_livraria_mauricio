@@ -6,6 +6,7 @@ import {
   Post,
   Body,
   Put,
+  Delete,
 } from '@nestjs/common';
 import { AutoresService } from './autores.service';
 import { AtualizarAutorDTO, CriarAutorDto } from './autores.dto';
@@ -14,7 +15,7 @@ import { AtualizarAutorDTO, CriarAutorDto } from './autores.dto';
 export class AutoresController {
   constructor(private readonly autoresService: AutoresService) {}
 
-  @Get('/listar-autores')
+  @Get('listar-autores')
   listarAutores() {
     return this.autoresService.listarAutores();
   }
@@ -36,4 +37,11 @@ export class AutoresController {
   ) {
     return this.autoresService.atualizarAutor(idAutor, bodyRequest);
   }
+
+  @Delete('deletar-autor/:id')
+  deletarAutor(@Param('id', ParseIntPipe) idAutor: number) {
+    return this.autoresService.deletarAutor(idAutor);
+  }
+
+  
 }
