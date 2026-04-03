@@ -28,9 +28,9 @@ let autores = [
 @Injectable()
 export class AutoresService {
   listarAutores() {
-    if (!autores){
-        return 'autores não encontrado';
-      }
+    if (!autores) {
+      return 'autores não encontrado';
+    }
     return autores;
   }
 
@@ -76,7 +76,7 @@ export class AutoresService {
     this.listarAutor(idAutor);
 
     autores = autores.filter((autor) => autor.id !== idAutor);
-    
+
     return autores;
   }
 }
