@@ -1,3 +1,4 @@
+import { AutoresRepository } from './autores.repository';
 import {
   BadRequestException,
   Injectable,
@@ -27,11 +28,10 @@ let autores = [
 
 @Injectable()
 export class AutoresService {
-  listarAutores() {
-    if (!autores) {
-      return 'autores não encontrado';
-    }
-    return autores;
+  constructor(private readonly autoresRepository: AutoresRepository){}
+
+  async listarAutores(){
+    return this.autoresRepository.listarAutores();
   }
 
   listarAutor(id: Number) {
