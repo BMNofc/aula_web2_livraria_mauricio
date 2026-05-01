@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 import { DRIZZLE } from 'src/db/database/database.constants';
 import { autoresTabela } from 'src/db/schemas';
 import type { DrizzleDB } from 'src/db/types/drizzleDB';
-import { CriarAutorDto } from './autores.dto';
+import { AtualizarAutorDTO, CriarAutorDto } from './autores.dto';
 
 @Injectable()
 export class AutoresRepository {
@@ -22,12 +22,14 @@ export class AutoresRepository {
     }
   }
 
-  async listaAutor(id: number) {
+  async listarAutor(id: number) {
     try {
-      return await this.db
+      const autorEncontrado = await this.db
         .select()
         .from(autoresTabela)
         .where(eq(autoresTabela.id, id));
+
+      return autorEncontrado[0];
     } catch (error) {
       throw new InternalServerErrorException('Erro ao listar um autor');
     }
@@ -45,6 +47,19 @@ export class AutoresRepository {
       return autorCriado;
     } catch (error) {
       throw new InternalServerErrorException('Erro ao criar um autor');
+    }
+  }
+
+  async atualizarAutor(id: number, bodyRequest: AtualizarAutorDTO) {
+    try {
+      await this.db
+        .update(autoresTabela)
+        .set(bodyRequest)
+        .where(eq(autoresTabela.id, id));
+
+      return 'Autor atualizado com sucesso';
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao atualizar um autor');
     }
   }
 }
