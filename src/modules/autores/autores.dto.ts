@@ -35,7 +35,7 @@ export class CriarAutorDto {
 
 export class AtualizarAutorDTO {
   @IsString({ message: 'O nome deve ser uma string' })
-  @IsOptional({ message: 'O nome é opcional' })
+  @IsOptional()
   @MinLength(3, { message: 'O nome deve ter pelo menos 3 caracteres' })
   @MaxLength(100, { message: 'O nome deve ter no máximo 100 caracteres' })
   @Transform(({ value }) => {
@@ -48,7 +48,7 @@ export class AtualizarAutorDTO {
 
   @IsEmail({}, { message: 'O email deve ser um email válido' })
   @MaxLength(255, { message: 'O email deve ter no máximo 255 caracteres' })
-  @IsOptional({ message: 'O email é opcional' })
+  @IsOptional()
   @Transform(({ value }) => {
     const valor = typeof value;
     if (valor === 'string') {
